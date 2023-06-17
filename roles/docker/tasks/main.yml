@@ -1,0 +1,41 @@
+---
+- name: Include OS-specific variables
+  ansible.builtin.include_vars: "dependencies.yml"
+
+- name: Install dependencies for docker
+  ansible.builtin.apt:
+    name: "{{ docker_deps }}"
+    state: present
+    update_cache: true
+
+- name: Install docker
+  ansible.builtin.apt:
+    name: "{{ docker_packages }}"
+    state: present
+    update_cache: true
+
+- name: Ensure group docker exists
+  ansible.builtin.group:
+    name: docker
+    state: present
+
+- name: Add user to docker group
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups:
+      - docker
+    append: true
+
+- name: Make sure that the docker folders exists
+  ansible.builtin.file:
+    path: "{{ docker_dir }}"
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: '0755'
+    state: directory
+
+- name: Ensure Docker is active
+  ansible.builtin.service:
+    name: docker
+    state: started
+    enabled: true

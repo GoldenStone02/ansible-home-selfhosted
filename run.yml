@@ -1,0 +1,8 @@
+---
+- name: "Run all roles"
+  hosts: testvm
+  gather_facts: false
+  become: true
+  roles:
+    - role: docker
+      tags: docker
