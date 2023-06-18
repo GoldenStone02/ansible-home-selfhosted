@@ -1,0 +1,18 @@
+#
+# Misc
+#
+docker_dir: "/opt/docker/data"
+
+
+#
+# Packages
+#
+extra_packages:
+      - iperf3
+      - speedtest-cli
+      - htop
+      - git
+      - neofetch
+      - vim
+      - iotop
+      - ncdu

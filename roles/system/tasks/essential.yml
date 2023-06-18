@@ -1,0 +1,20 @@
+---
+- name: Install extra packages
+  ansible.builtin.apt:
+    name: "{{ extra_packages }}"
+    state: present
+
+- name: Ensure /etc/sudoers.d/ folder exists
+  ansible.builtin.file:
+    path: /etc/sudoers.d/
+    state: directory
+    mode: '0755'
+
+- name: Allow user to sudo without password
+  ansible.builtin.lineinfile:
+    dest: /etc/sudoers.d/{{ ansible_host }}
+    create: true
+    mode: '0440'
+    regexp: '^{{ ansible_host }}'
+    line: '{{ ansible_host }} ALL=(ALL) NOPASSWD:ALL'
+    validate: visudo -cf %s

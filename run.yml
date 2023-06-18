@@ -3,6 +3,12 @@
   hosts: testvm
   gather_facts: false
   become: true
+  vars_files:
+    - vars/all_vars.yml
+
   roles:
+    - role: system
+      tags: system
+
     - role: docker
       tags: docker
