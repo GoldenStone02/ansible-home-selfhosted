@@ -1,8 +1,27 @@
 #
 # Misc
 #
+timezone: Europe/Amsterdam
+
+ntp_timezone: "{{ timezone }}"
+
+host_tld: "box"
+
+lan_subnet: 192.168.1.0/24
+
+lan_base: "{{ lan_subnet | regex_replace('.0/[0-9]{2}', '') }}"
+
+pihole_ip: "{{ lan_base }}.10"
+
+pihole_url: "http://{{ pihole_ip }}:81"
+
+homeserver_ip: "{{ lan_base }}.30"
+
+guid: "1000"
+
 docker_dir: "/opt/docker/data"
 
+colorscheme: nord
 
 #
 # Packages
@@ -16,3 +35,16 @@ extra_packages:
       - vim
       - iotop
       - ncdu
+
+# Homer
+
+enable_homer: true
+homer_title: "Homer"
+homer_subtitle: "A page for all my selfhosted services"
+homer_port: '8080'
+
+# Frontends
+
+enable_libreddit: true
+enable_nitter: false
+enable_chatbot: false

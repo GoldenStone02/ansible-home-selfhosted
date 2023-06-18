@@ -1,7 +1,6 @@
 ---
 - name: "Run all roles"
   hosts: testvm
-  gather_facts: false
   become: true
   vars_files:
     - vars/all_vars.yml
@@ -12,3 +11,9 @@
 
     - role: docker
       tags: docker
+
+    - role: homer
+      tags:
+        - homer
+        - containers
+      when: enable_homer | default(False)
