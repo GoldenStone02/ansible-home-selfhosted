@@ -23,3 +23,9 @@
         - libreddit
         - frontends
         - containers
+
+    - role: containers/system/portainer
+      tags:
+        - portainer
+        - system
+        - containers
