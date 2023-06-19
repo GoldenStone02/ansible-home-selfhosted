@@ -17,3 +17,9 @@
         - homer
         - containers
       when: enable_homer | default(False)
+
+    - role: containers/frontends/libreddit
+      tags:
+        - libreddit
+        - frontends
+        - containers
