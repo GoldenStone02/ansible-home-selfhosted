@@ -34,12 +34,14 @@ extra_packages:
       - iotop
       - ncdu
 
+home_dir: "/home/{{ ansible_user }}"
+
 # Homer
 
 enable_homer: true
 homer_title: "Homer"
 homer_subtitle: "A page for all my selfhosted services"
-homer_port: '8080'
+homer_port: '7000'
 
 # Frontends
 
@@ -50,5 +52,5 @@ enable_nitter: false
 
 enable_fritzbox: true
 enable_portainer: true
-# enable_pihole: true
-pihole_url: "http://pi.hole/admin"
+enable_pihole: true
+pihole_url: "http://192.168.130.200/admin"
