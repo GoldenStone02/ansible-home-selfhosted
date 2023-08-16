@@ -3,6 +3,6 @@ container_name: portainer
 
 homer_category: system
 
-dashboard_url: "http://portainer.{{ host_tld }}"
+dashboard_url: "http://port.{{ host_tld }}"
 
 ext_port: 5000
