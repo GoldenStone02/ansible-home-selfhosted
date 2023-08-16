@@ -1,4 +1,6 @@
 ---
+dashboard_url: "{{ pihole_url }}"
+
 timezone: Asia/Singapore
 pihole_webtheme: "default-dark"
 pihole_webpassword: "password"    # Change this to your own password

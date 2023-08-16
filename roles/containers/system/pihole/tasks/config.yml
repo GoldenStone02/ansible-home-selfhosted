@@ -1,0 +1,25 @@
+---
+- name: Add Other DNS records to pihole
+  ansible.builtin.lineinfile:
+    path: "{{ docker_dir }}/pihole-unbound/pihole/custom.list"
+    line: "{{ homeserver_ip }} {{ item }}"
+    regexp: "^{{ homeserver_ip }} {{ item }}"
+    state: present
+    create: true
+  with_items:
+    - "{{ host_tld }}"    # Homer page
+
+- name: Add DNS Record for all services to pihole
+  ansible.builtin.lineinfile:
+    path: "{{ docker_dir }}/pihole-unbound/pihole/custom.list"
+    line: "{{ homeserver_ip }} {{ item.value }}"
+    state: present
+    create: true
+  with_dict: "{{ swag_urls }}"
+
+- name: Restart Pihole + Unbound container
+  community.docker.docker_container:
+    name: pihole-unbound
+    image: 'rlabinc/pihole-unbound:latest'
+    pull: true
+    restart: true

@@ -1,0 +1,40 @@
+---
+- name: Flush Handlers (Prevents Port Issue)
+  ansible.builtin.meta: flush_handlers
+
+- name: Change nameserver in /etc/resolv.conf
+  ansible.builtin.lineinfile:
+    path: /etc/resolv.conf
+    regexp: '^nameserver'
+    line: 'nameserver 8.8.8.8'
+
+- name: Configure Pihole + Unbound container
+  community.docker.docker_container:
+    name: pihole-unbound
+    image: 'rlabinc/pihole-unbound:latest'
+    pull: true
+    env:
+      TZ: "{{ timezone }}"
+      WEBPASSWORD: "{{ pihole_webpassword }}"
+      WEBTHEME: "{{ pihole_webtheme }}"
+      REV_SERVER: "{{ rev_server }}"
+      REV_SERVER_TARGET: "{{ rev_server_target }}"
+      REV_SERVER_DOMAIN: "{{ rev_server_domain }}"
+      REV_SERVER_CIDR: "{{ rev_server_cidr }}"
+      DNSSEC: "{{ dnssec }}"
+      network_mode: bridge
+      DNSMASQ_LISTENING: "{{ dnsmasq_listening }}"
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "{{ ext_port }}:80"
+    volumes:
+      - "{{ docker_dir }}/pihole-unbound/pihole:/etc/pihole"
+      - "{{ docker_dir }}/pihole-unbound/unbound:/etc/unbound"
+    restart_policy: unless-stopped
+
+- name: Change nameserver in /etc/resolv.conf
+  ansible.builtin.lineinfile:
+    path: /etc/resolv.conf
+    regexp: '^nameserver'
+    line: 'nameserver 172.17.0.7'
