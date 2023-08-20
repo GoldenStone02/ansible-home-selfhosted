@@ -1,0 +1,10 @@
+---
+- name: Deploy VaultWarden
+  community.docker.docker_container:
+    name: vaultwarden
+    image: vaultwarden/server:latest
+    ports:
+      - "{{ ext_port }}:80"
+    volumes: 
+      - "{{ docker_dir }}/vaultwarden:/data/"
+    restart_policy: unless-stopped

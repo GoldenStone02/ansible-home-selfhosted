@@ -1,0 +1,17 @@
+---
+container_name: nextcloud
+
+homer_category: services
+
+dashboard_url: "http://next.{{ host_tld }}"
+
+nextcloud: nextcloud
+
+ext_port: 3000
+
+# Be sure to change these passwords before deploying #
+MYSQL_ROOT_PASSWORD: somerootpassword
+MYSQL_PASSWORD: somemysqlpassword
+MYSQL_DATABASE: db
+MYSQL_USER: mysqluser
+MYSQL_HOST: mariadb

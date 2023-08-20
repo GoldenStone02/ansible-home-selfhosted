@@ -1,0 +1,8 @@
+---
+container_name: vaultwarden
+
+homer_category: services
+
+dashboard_url: "http://vault.{{ host_tld }}"
+
+ext_port: 4000
