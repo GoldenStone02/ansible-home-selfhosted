@@ -1,0 +1,6 @@
+---
+container_name: nginx
+
+homer_category: system
+
+dashboard_url: "http://nginx.{{ host_tld }}"

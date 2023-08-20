@@ -1,0 +1,15 @@
+---
+- name: Configure Nginx Proxy Manager container
+  community.docker.docker_container:
+    name: nginxproxymanager
+    hostname: nginxproxymanager
+    image: 'jc21/nginx-proxy-manager:latest'
+    pull: true
+    volumes:
+      - '{{ docker_dir }}/nginx:/data'
+      - '{{ docker_dir }}/letsencrypt:/etc/letsencrypt'
+    ports:
+      - '80:80'
+      - '81:81'
+      - '443:443'
+    restart_policy: unless-stopped
