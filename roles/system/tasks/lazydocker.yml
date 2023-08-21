@@ -3,27 +3,38 @@
 # From: https://lindevs.com/install-lazydocker-on-ubuntu/
 #
 
+- name: Check if Lazydocker is installed
+  command: which lazydocker
+  changed_when: false
+  failed_when: lazydocker_installed.rc not in [0,1]
+  register: lazydocker_installed
+
 - name: Install Lazydocker
   ansible.builtin.shell: |
     LAZYDOCKER_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazydocker/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+')
     curl -Lo lazydocker.tar.gz "https://github.com/jesseduffield/lazydocker/releases/latest/download/lazydocker_${LAZYDOCKER_VERSION}_Linux_x86_64.tar.gz"
+  when: lazydocker_installed.rc not in [ 0 ]
 
 - name: Create tmp directory
   ansible.builtin.file:
     path: "{{ home_dir }}/lazydocker-temp"
     state: directory
+  when: lazydocker_installed.rc not in [ 0 ]
 
 - name: Unzip tar.gz file
   ansible.builtin.command: "tar -xvf {{ home_dir }}/lazydocker.tar.gz -C {{ home_dir }}/lazydocker-temp"
+  when: lazydocker_installed.rc not in [ 0 ]
 
 - name: Move binary file to '/usr/local/bin' directory
   command: sudo mv "{{ home_dir }}/lazydocker-temp/lazydocker" /usr/local/bin
+  when: lazydocker_installed.rc not in [ 0 ]
 
-- name: Check if lazydocker is installed
+- name: Verifies that lazydocker is installed
   ansible.builtin.command: lazydocker --version
   register: lazydocker_version
   changed_when: false
   failed_when: false
+  when: lazydocker_installed.rc not in [ 0 ]
 
 - name: Remove lazydocker tmp directory and tar.gz file
   ansible.builtin.file:
@@ -32,3 +43,4 @@
   with_items:
     - "{{ home_dir }}/lazydocker.tar.gz"
     - "{{ home_dir }}/lazydocker-temp"
+  when: lazydocker_installed.rc not in [ 0 ]
