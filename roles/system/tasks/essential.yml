@@ -18,3 +18,26 @@
     regexp: '^{{ ansible_user }}'
     line: '{{ ansible_user }} ALL=(ALL) NOPASSWD:ALL'
     validate: visudo -cf %s
+
+- name: Disable DNS on port 53
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/resolved.conf
+    regexp: '^DNSStubListener'
+    line: 'DNSStubListener=no'
+  notify:
+    - Restart Systemd
+
+- name: Remove symlink on /etc/resolv.conf
+  ansible.builtin.file:
+    path: /etc/resolv.conf
+    state: absent
+
+- name: Create /etc/resolv.conf
+  ansible.builtin.file:
+    path: /etc/resolv.conf
+    state: touch
+
+- name: Add Google DNS for installation
+  ansible.builtin.lineinfile:
+    path: /etc/resolv.conf
+    line: 'nameserver 8.8.8.8'
