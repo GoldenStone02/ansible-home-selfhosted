@@ -1,3 +1,9 @@
+# Extensions
+.vscode
+.vagrant
+*.bak
+
+# Files to ignore
 inventory.ini
 nas.md
-.vagrant
+files

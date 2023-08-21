@@ -1,8 +1,0 @@
----
-- name: "Fresh Installation for Server"
-  host: raspberry_pi
-  gather_facts: False
-  vars:
-
-  tasks:
-    - name: "Provision"
