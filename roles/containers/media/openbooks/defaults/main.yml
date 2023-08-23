@@ -1,0 +1,10 @@
+---
+container_name: openbooks
+
+homer_category: media
+
+dashboard_url: "http://book.{{ host_tld }}"
+
+ext_port: 2500
+
+openbook_irc_username: vagrant

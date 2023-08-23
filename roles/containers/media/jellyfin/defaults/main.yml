@@ -1,0 +1,8 @@
+---
+container_name: jellyfin
+
+homer_category: media
+
+dashboard_url: "http://jelly.{{ host_tld }}"
+
+ext_port: 2300
