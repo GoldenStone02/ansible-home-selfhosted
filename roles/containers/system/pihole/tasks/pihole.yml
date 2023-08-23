@@ -23,7 +23,6 @@
       REV_SERVER_CIDR: "{{ rev_server_cidr }}"
       DNSSEC: "{{ dnssec }}"
       network_mode: bridge
-      DNSMASQ_LISTENING: "{{ dnsmasq_listening }}"
     ports:
       - "53:53/tcp"
       - "53:53/udp"
@@ -37,4 +36,4 @@
   ansible.builtin.lineinfile:
     path: /etc/resolv.conf
     regexp: '^nameserver'
-    line: 'nameserver 172.17.0.7'
+    line: 'nameserver 172.17.0.3'

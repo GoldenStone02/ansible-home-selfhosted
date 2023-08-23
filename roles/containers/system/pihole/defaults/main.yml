@@ -9,6 +9,5 @@ rev_server: "false"
 rev_server_target: ""
 rev_server_domain: ""
 rev_server_cidr: ""
-dnssec: "false"
-dnsmasq_listening: "single"
+dnssec: "true"
 ext_port: '8080'
