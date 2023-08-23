@@ -1,9 +1,9 @@
 ---
 container_name: libreddit
 
-homer_category: frontends
+homer_category: media
 
-dashboard_url: "http://libreddit.{{ host_tld }}"
+dashboard_url: "http://reddit.{{ host_tld }}"
 
 ext_port: 2000
 

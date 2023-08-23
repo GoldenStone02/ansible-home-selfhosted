@@ -1,7 +1,7 @@
 ---
 - name: Deploy VaultWarden
   community.docker.docker_container:
-    name: vaultwarden
+    name: "{{ container_name }}"
     image: vaultwarden/server:latest
     ports:
       - "{{ ext_port }}:80"
