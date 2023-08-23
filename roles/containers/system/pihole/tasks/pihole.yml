@@ -23,6 +23,8 @@
       REV_SERVER_CIDR: "{{ rev_server_cidr }}"
       DNSSEC: "{{ dnssec }}"
       network_mode: bridge
+    labels: 
+      com.centurylinklabs.watchtower.monitor-only: 'true'
     ports:
       - "53:53/tcp"
       - "53:53/udp"
