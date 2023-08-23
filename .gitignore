@@ -7,3 +7,7 @@
 inventory.ini
 nas.md
 files
+
+group_vars
+!group_vars/all
+!group_vars/main.yml

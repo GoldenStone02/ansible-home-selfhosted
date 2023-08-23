@@ -2,7 +2,7 @@
 - name: Configure Jellyfin container
   community.docker.docker_container:
     name: "{{ container_name }}"
-    image: 'ghcr.io/linuxserver/jellyfin:latest'
+    image: 'jellyfin/jellyfin:latest'
     pull: true
     ports:
       - "{{ ext_port }}:8096"

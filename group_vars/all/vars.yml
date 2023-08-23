@@ -61,7 +61,6 @@ enable_wireguard: false
 
 # System
 enable_nginx: true
-enable_fritzbox: true
 enable_portainer: true
 enable_pihole: true
 pihole_url: "http://pi.{{ host_tld }}/admin"
