@@ -4,7 +4,7 @@
     name: "{{ container_name }}"
     image: 'evanbuss/openbooks:latest'
     pull: true
-    command: --persist --searchbot searchook --name {{ openbook_irc_username }} --useragent "HexChat 2.16.1" --log true
+    command: --persist --name {{ openbook_irc_username }} --useragent "HexChat 2.16.1" --log true
     ports:
       - "{{ ext_port }}:80"
     volumes:
