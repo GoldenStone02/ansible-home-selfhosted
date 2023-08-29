@@ -8,8 +8,6 @@
     volumes:
       - '{{ docker_dir }}/nginx:/data'
       - '{{ docker_dir }}/letsencrypt:/etc/letsencrypt'
-    ports:
-      - '80:80'
-      - '81:81'
-      - '443:443'
+    networks:
+      - name: host
     restart_policy: unless-stopped

@@ -4,7 +4,7 @@
     name: "{{ container_name }}"
     image: vaultwarden/server:latest
     ports:
-      - "{{ ext_port }}:80"
+      - "127.0.0.1:{{ ext_port }}:80"
     volumes: 
       - "{{ docker_dir }}/vaultwarden:/data/"
     restart_policy: unless-stopped

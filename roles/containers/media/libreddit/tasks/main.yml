@@ -9,5 +9,5 @@
       LIBREDDIT_DEFAULT_USE_HLS: "{{ libreddit_hls }}"
       LIBREDDIT_DEFAULT_HIDE_HLS_NOTIFICATION: "{{ libreddit_hls_hide }}"
     ports:
-      - "{{ ext_port }}:8080"
+      - "127.0.0.1:{{ ext_port }}:8080"
     restart_policy: unless-stopped

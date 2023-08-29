@@ -28,7 +28,7 @@
     ports:
       - "53:53/tcp"
       - "53:53/udp"
-      - "{{ ext_port }}:80"
+      - "127.0.0.1:{{ ext_port }}:80"
     volumes:
       - "{{ docker_dir }}/pihole-unbound/pihole:/etc/pihole"
       - "{{ docker_dir }}/pihole-unbound/unbound:/etc/unbound"

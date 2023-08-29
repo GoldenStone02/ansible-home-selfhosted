@@ -6,7 +6,7 @@
     pull: true
     command: --persist --name {{ openbook_irc_username }} --useragent "HexChat 2.16.1" --log true
     ports:
-      - "{{ ext_port }}:80"
+      - "127.0.0.1:{{ ext_port }}:80"
     volumes:
       - "{{ docker_dir }}/openbooks:/books"
     restart_policy: unless-stopped

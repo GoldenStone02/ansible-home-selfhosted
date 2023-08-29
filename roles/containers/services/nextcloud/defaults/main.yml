@@ -7,7 +7,7 @@ dashboard_url: "http://next.{{ host_tld }}"
 
 nextcloud: nextcloud
 
-ext_port: 3000
+ext_port: 2700
 
 # Be sure to change these passwords before deploying #
 MYSQL_ROOT_PASSWORD: somerootpassword
