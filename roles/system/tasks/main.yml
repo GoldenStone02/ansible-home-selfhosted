@@ -2,3 +2,4 @@
 - ansible.builtin.include_tasks: essential.yml
 - ansible.builtin.include_tasks: lazydocker.yml
 - ansible.builtin.include_tasks: ssh.yml
+- ansible.builtin.include_tasks: firewall.yml

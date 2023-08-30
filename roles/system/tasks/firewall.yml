@@ -1,0 +1,24 @@
+- name: Install ufw
+  ansible.builtin.package:
+    name: ufw
+    state: present
+
+- name: Clear and reset all ufw rules
+  community.general.ufw:
+    state: reset
+
+- name: Add default ports/services to ufw
+  community.general.ufw:
+    rule: allow
+    port: "{{ item }}"
+    proto: tcp
+  with_items:
+    - ssh
+    - http
+    - https
+    - 81
+    - '{{ ssh_port }}'
+
+- name: Restart UFW
+  community.general.ufw:
+    state: enabled
