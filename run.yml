@@ -1,9 +1,9 @@
 ---
 - name: "Run all roles"
-  hosts: testvm
+  hosts: raspberry_pi
   become: true
   vars_files:
-    - vars/all_vars.yml
+    - group_vars/main.yml
 
   roles:
     - role: system
@@ -12,20 +12,72 @@
     - role: docker
       tags: docker
 
+    - role: geerlingguy.ntp
+      tags: ntp
+
     - role: homer
       tags:
         - homer
         - containers
       when: enable_homer | default(False)
 
-    - role: containers/frontends/libreddit
+    - role: containers/system/pihole
+      tags:
+        - pihole
+        - system
+        - containers
+      when: enable_pihole | default(False)
+
+    - role: containers/media/libreddit
       tags:
         - libreddit
-        - frontends
+        - media
         - containers
+      when: enable_libreddit | default(False)
+
+    - role: containers/media/openbooks
+      tags:
+        - openbooks
+        - media
+        - containers
+      when: enable_openbooks | default(False)
+
+    - role: containers/media/jellyfin
+      tags:
+        - jellyfin
+        - media
+        - containers
+      when: enable_jellyfin | default(False)
+
+    - role: containers/services/nextcloud
+      tags:
+        - nextcloud
+        - services
+        - containers
+      when: enable_nextcloud | default(False)
+
+    - role: containers/services/vaultwarden
+      tags:
+        - vaultwarden
+        - services
+        - containers
+      when: enable_vaultwarden | default(False)
 
     - role: containers/system/portainer
       tags:
         - portainer
         - system
         - containers
+      when: enable_portainer | default(False)
+
+    - role: containers/system/watchtower
+      tags:
+        - watchtower
+        - system
+        - containers
+      when: enable_watchtower | default(False)
+
+    - role: containers/system/nginx
+      tags:
+        - nginx
+      when: enable_nginx | default(False)
