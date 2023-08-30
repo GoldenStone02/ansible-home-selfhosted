@@ -50,7 +50,6 @@ homer_port: '7000'
 
 # Media
 enable_libreddit: true
-enable_nitter: false
 enable_jellyfin: false
 enable_openbooks: true
 
