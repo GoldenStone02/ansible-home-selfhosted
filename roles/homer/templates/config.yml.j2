@@ -40,10 +40,10 @@ colors:
     status-online: "{{ colors.color10 }}"
 
 services:
-  - name: "Privacy frontends"
-    icon: "fas fa-user-secret"
+  - name: "Media"
+    icon: "fas fa-photo-video"
     items:
-  {% for item in web_applications if "frontend" in item.category and item.url != "" %}
+  {% for item in web_applications if "media" in item.category and item.url != "" %}
     - name: "{{ item.name }}"
 {% if connectivity_check %}
         type: Ping
@@ -83,7 +83,7 @@ services:
         endpoint: "{{ item.endpoint }}"
         target: "_blank"
   {% endfor %}
-    - name: "FRITZ!Box"
+        - name: "FRITZ!Box"
 {% if connectivity_check %}
         type: Ping
 {% endif %}

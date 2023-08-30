@@ -1,6 +1,6 @@
 ---
 container_name: homer
-homer_title: "I don't know if they let cowboys in"
-homer_subtitle: "When I die, I may not go to heaven"
+homer_title: "Serve, then Dash"
+homer_subtitle: "What you see, is what you get"
 
 connectivity_check: false
