@@ -7,6 +7,8 @@
 inventory.ini
 nas.md
 files
+!files/custom.css
+*.png
 
 group_vars
 !group_vars/all
