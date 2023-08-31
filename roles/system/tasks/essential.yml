@@ -35,8 +35,12 @@
     path: /etc/systemd/resolved.conf
     regexp: '^DNSStubListener'
     line: 'DNSStubListener=no'
-  notify:
-    - Restart Systemd
+
+- name: Restart Systemd
+  ansible.builtin.service:
+    name: systemd-resolved
+    state: stopped
+    enabled: false
 
 - name: Remove symlink on /etc/resolv.conf
   ansible.builtin.file:
