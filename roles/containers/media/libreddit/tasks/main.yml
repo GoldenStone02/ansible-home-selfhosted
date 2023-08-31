@@ -2,7 +2,7 @@
 - name: Configure Libreddit container
   community.docker.docker_container:
     name: "{{ container_name }}"
-    image: 'libreddit/libreddit'
+    image: 'libreddit/libreddit:latest-arm'
     pull: true
     env:
       LIBREDDIT_DEFAULT_THEME: "{{ libreddit_theme }}"
