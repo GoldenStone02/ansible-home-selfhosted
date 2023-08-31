@@ -8,8 +8,8 @@
 Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://vagrantcloud.com/search.
-  # config.vm.box = "ubuntu/focal64" # Ubuntu 20.04 LTS
-  config.vm.box = "ubuntu/jammy64" # Ubuntu 22.04 LTS
+  config.vm.box = "ubuntu/focal64" # Ubuntu 20.04 LTS
+  # config.vm.box = "ubuntu/jammy64" # Ubuntu 22.04 LTS
 
   config.vm.network "private_network", ip: "192.168.130.200"
 
