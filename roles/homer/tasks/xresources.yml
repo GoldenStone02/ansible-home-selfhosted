@@ -7,39 +7,47 @@
     name: python3-pip
     state: present
 
-- name: Check if Python 3.8 was installed
-  stat:
-    path: "/usr/bin/python3.8"
+- name: Check if /usr/bin/python3 is Python 3.8
+  ansible.builtin.command: /usr/bin/python3 --version
   changed_when: false
   failed_when: false
-  register: file_data
+  register: python_version
+
+- name: Python version
+  debug:
+    msg: "{{ python_version.stdout }}"
 
 - name: Installing add-apt-repository
   ansible.builtin.apt:
     name: software-properties-common
     state: latest
-  when: not file_data.stat.exists
+  when: python_version.stdout.find('3.8') == -1
 
 - name: Add Deadsnake APT Repository
   ansible.builtin.apt_repository:
     repo: ppa:deadsnakes/ppa
-  when: not file_data.stat.exists
+  when: python_version.stdout.find('3.8') == -1
 
 - name: Pre-requsities for Python 3.8
   ansible.builtin.command: sudo apt-cache policy python3.8
   changed_when: false
-  when: not file_data.stat.exists
+  when: python_version.stdout.find('3.8') == -1
 
 - name: Installing Python 3.8 Dependencies
   ansible.builtin.apt:
     pkg: 
       - python3.8
       - python3.8-distutils
-  when: not file_data.stat.exists
+  when: python_version.stdout.find('3.8') == -1
 
 - name: Install the Xresources parser
   ansible.builtin.command: python3.8 -m pip install xparser
-  when: not file_data.stat.exists
+  when: python_version.stdout.find('3.8') == -1
+
+- name: Install the Xresources parser
+  ansible.builtin.pip:
+    name: xparser
+  when: not python_version.stdout.find('3.8') == -1
 
 - name: Install the Xresources file
   ansible.builtin.copy:
