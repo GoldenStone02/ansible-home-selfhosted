@@ -10,7 +10,7 @@ git clone [this repo url]
 
 ## Prerequisities
 - Raspberry Pi
-- Ubuntu 23.04 (installed on your server)
+- Ubuntu 20.04 (installed on your server)
 - SSH Pubkeys (from your server)
 
 ## Requirements
