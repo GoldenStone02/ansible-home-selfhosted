@@ -1,2 +1,4 @@
 ---
 container_name: watchtower
+
+watchtower_notification_url: your_webhook_url
