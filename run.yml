@@ -12,9 +12,6 @@
     - role: docker
       tags: docker
 
-    - role: geerlingguy.ntp
-      tags: ntp
-
     - role: homer
       tags:
         - homer
