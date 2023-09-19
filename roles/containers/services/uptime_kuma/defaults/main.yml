@@ -1,0 +1,8 @@
+---
+container_name: uptimekuma
+
+homer_category: services
+
+dashboard_url: "http://uptime.{{ host_tld }}"
+
+ext_port: 3300

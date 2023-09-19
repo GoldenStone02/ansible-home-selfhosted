@@ -1,0 +1,11 @@
+---
+- name: Deploy Uptime Kuma
+  community.docker.docker_container:
+    name: "{{ container_name }}"
+    image: louislam/uptime-kuma:latest
+    ports:
+      - "{{ ext_port }}:3001"
+    volumes: 
+      - "{{ docker_dir }}/uptime-kuma:/app/data/"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart_policy: unless-stopped
