@@ -46,13 +46,6 @@
         - containers
       when: enable_jellyfin | default(False)
 
-    - role: containers/services/nextcloud
-      tags:
-        - nextcloud
-        - services
-        - containers
-      when: enable_nextcloud | default(False)
-
     # - role: containers/services/uptime_kuma
     #   tags:
     #     - uptime_kuma
