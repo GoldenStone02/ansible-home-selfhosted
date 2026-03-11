@@ -15,3 +15,11 @@
     ports:
       - "127.0.0.1:{{ homer_port }}:8080"
     restart_policy: unless-stopped
+
+- name: Add {{ container_name }} to the NGINX network (reverse-proxy)
+  docker_network:
+    name: ngx_internal_network
+    connected:
+      - "{{ container_name }}"
+    appends: yes
+  when: enable_nginx

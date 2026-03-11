@@ -1,0 +1,16 @@
+---
+- name: Create an internal network
+  docker_network:
+    name: ngx_internal_network
+    ipam_config:
+      - subnet: "172.20.0.0/16"
+
+# - name: Create a public macvlan network
+#   docker_network:
+#     name: ngx_public_macvlan
+#     driver: macvlan
+#     driver_options:
+#       parent: enp5s0
+#     ipam_config:
+#       - subnet: "{{ dmz_network }}"
+#         gateway: "{{ dmz_gateway }}"
