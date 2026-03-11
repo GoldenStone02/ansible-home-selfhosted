@@ -25,12 +25,12 @@
         - containers
       when: enable_pihole | default(False)
 
-    - role: containers/media/libreddit
+    - role: containers/media/redlib
       tags:
-        - libreddit
+        - redlib
         - media
         - containers
-      when: enable_libreddit | default(False)
+      when: enable_redlib | default(False)
 
     - role: containers/media/openbooks
       tags:
@@ -53,12 +53,26 @@
         - containers
       when: enable_nextcloud | default(False)
 
+    # - role: containers/services/uptime_kuma
+    #   tags:
+    #     - uptime_kuma
+    #     - services
+    #     - containers
+    #   when: enable_uptime_kuma | default(False)
+
     - role: containers/services/vaultwarden
       tags:
         - vaultwarden
         - services
         - containers
       when: enable_vaultwarden | default(False)
+
+    # - role: containers/services/wireguard
+    #   tags:
+    #     - wireguard
+    #     - services
+    #     - containers
+    #   when: enable_wireguard | default(False)
 
     - role: containers/system/portainer
       tags:

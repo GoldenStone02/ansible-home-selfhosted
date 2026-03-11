@@ -1,0 +1,12 @@
+---
+container_name: redlib
+
+homer_category: media
+
+dashboard_url: "http://reddit.{{ host_tld }}"
+
+ext_port: 2000
+
+redlib_theme: libredditDark
+redlib_hls: "on"
+redlib_hls_hide: "on"

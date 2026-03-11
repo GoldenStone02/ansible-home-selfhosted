@@ -1,0 +1,22 @@
+---
+- name: Configure redlib container
+  community.docker.docker_container:
+    name: "{{ container_name }}"
+    image: 'quay.io/redlib/redlib:latest'
+    pull: true
+    env:
+      REDLIB_DEFAULT_THEME: "{{ redlib_theme }}"
+      REDLIB_DEFAULT_USE_HLS: "{{ redlib_hls }}"
+      REDLIB_DEFAULT_HIDE_HLS_NOTIFICATION: "{{ redlib_hls_hide }}"
+    ports:
+      - "127.0.0.1:{{ ext_port }}:8080"
+    restart_policy: unless-stopped
+
+- name: Add {{ container_name }} to the NGINX network (reverse-proxy)
+  docker_network:
+    name: ngx_internal_network
+    connected:
+      - "{{ container_name }}"
+    appends: yes
+  when: enable_nginx
+  
