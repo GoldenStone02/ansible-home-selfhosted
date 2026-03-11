@@ -9,3 +9,11 @@
     volumes:
       - "{{ docker_dir }}/jellyfin/config:/config"
     restart_policy: unless-stopped
+
+- name: Add {{ container_name }} to the NGINX network (reverse-proxy)
+  docker_network:
+    name: ngx_internal_network
+    connected:
+      - "{{ container_name }}"
+    appends: yes
+  when: enable_nginx
