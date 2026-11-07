@@ -11,7 +11,7 @@
 - name: Configure Pihole + Unbound container
   community.docker.docker_container:
     name: pihole-unbound
-    image: 'rlabinc/pihole-unbound:latest'
+    image: 'mpgirro/pihole-unbound:latest'
     pull: true
     env:
       TZ: "{{ timezone }}"

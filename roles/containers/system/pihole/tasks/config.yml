@@ -20,6 +20,6 @@
 - name: Restart Pihole + Unbound container
   community.docker.docker_container:
     name: pihole-unbound
-    image: 'rlabinc/pihole-unbound:latest'
+    image: 'mpgirro/pihole-unbound:latest'
     pull: false
     restart: true
