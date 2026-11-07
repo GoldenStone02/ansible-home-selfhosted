@@ -46,12 +46,12 @@
         - containers
       when: enable_jellyfin | default(False)
 
-    # - role: containers/services/uptime_kuma
-    #   tags:
-    #     - uptime_kuma
-    #     - services
-    #     - containers
-    #   when: enable_uptime_kuma | default(False)
+    - role: containers/services/uptime_kuma
+      tags:
+        - uptime_kuma
+        - services
+        - containers
+      when: enable_uptime_kuma | default(False)
 
     - role: containers/services/vaultwarden
       tags:
