@@ -16,6 +16,7 @@
     state: present
     create: true
   with_dict: "{{ swag_urls }}"
+  when: swag_urls is defined
 
 - name: Restart Pihole + Unbound container
   community.docker.docker_container:

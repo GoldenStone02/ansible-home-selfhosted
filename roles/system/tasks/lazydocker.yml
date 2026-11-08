@@ -42,7 +42,10 @@
   when: lazydocker_installed.rc not in [ 0 ]
 
 - name: Move binary file to '/usr/local/bin' directory
-  command: sudo mv "{{ home_dir }}/lazydocker-temp/lazydocker" /usr/local/bin
+  ansible.builtin.command:
+    cmd: mv "{{ home_dir }}/lazydocker-temp/lazydocker" /usr/local/bin
+    creates: /usr/local/bin/lazydocker
+  become: true
   when: lazydocker_installed.rc not in [ 0 ]
 
 - name: Verifies that lazydocker is installed

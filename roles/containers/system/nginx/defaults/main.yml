@@ -1,5 +1,5 @@
 ---
-container_name: nginx
+container_name: nginxproxymanager 
 
 homer_category: system
 

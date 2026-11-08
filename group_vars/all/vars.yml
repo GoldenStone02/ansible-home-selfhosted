@@ -54,9 +54,7 @@ enable_jellyfin: false
 enable_openbooks: true
 
 # Services
-enable_nextcloud: true
 enable_vaultwarden: true
-enable_wireguard: false
 enable_uptime_kuma: true
 
 # System

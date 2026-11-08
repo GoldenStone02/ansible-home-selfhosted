@@ -22,7 +22,7 @@
       REV_SERVER_DOMAIN: "{{ rev_server_domain }}"
       REV_SERVER_CIDR: "{{ rev_server_cidr }}"
       DNSSEC: "{{ dnssec }}"
-      network_mode: bridge
+    network_mode: bridge
     labels: 
       com.centurylinklabs.watchtower.monitor-only: 'true'
     ports:

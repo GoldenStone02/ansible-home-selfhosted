@@ -2,8 +2,6 @@
 - name: "Run all roles"
   hosts: raspberry_pi
   become: true
-  vars_files:
-    - group_vars/main.yml
 
   roles:
     - role: system

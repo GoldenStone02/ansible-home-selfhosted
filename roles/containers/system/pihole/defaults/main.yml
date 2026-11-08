@@ -1,4 +1,6 @@
 ---
+homer_category: system
+
 dashboard_url: "{{ pihole_url }}"
 
 timezone: Asia/Singapore

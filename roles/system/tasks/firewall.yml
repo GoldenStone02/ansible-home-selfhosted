@@ -3,10 +3,6 @@
     name: ufw
     state: present
 
-- name: Clear and reset all ufw rules
-  community.general.ufw:
-    state: reset
-
 - name: Add default ports/services to ufw
   community.general.ufw:
     rule: allow

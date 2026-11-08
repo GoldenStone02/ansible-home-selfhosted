@@ -7,11 +7,11 @@
     state: present
     validate: 'sshd -t -f %s'
   with_items:
-    - regexp: "^PasswordAuthentication"
+    - regexp: "^#?PasswordAuthentication"
       line: "PasswordAuthentication no"
-    - regexp: "^PermitRootLogin"
+    - regexp: "^#?PermitRootLogin"
       line: "PermitRootLogin no"
-    - regexp: "^Port"
+    - regexp: "^#?Port"
       line: "Port {{ ssh_port }}"
   notify: Restart SSH
     
