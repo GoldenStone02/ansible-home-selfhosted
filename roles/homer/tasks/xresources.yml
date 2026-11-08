@@ -1,73 +1,9 @@
 ---
-# Compatibility issue workaround with xparser library 
-# not functioning with Python 3.10 and above.
+- name: Load colorscheme definitions
+  ansible.builtin.include_vars:
+    file: colorschemes.yml
+    name: colorschemes
 
-- name: Install pip
-  ansible.builtin.package:
-    name: python3-pip
-    state: present
-
-- name: Check if /usr/bin/python3 is Python 3.8
-  ansible.builtin.command: /usr/bin/python3 --version
-  changed_when: false
-  failed_when: false
-  register: python_version
-
-- name: Python version
-  debug:
-    msg: "{{ python_version.stdout }}"
-
-- name: Installing add-apt-repository
-  ansible.builtin.apt:
-    name: software-properties-common
-    state: latest
-  when: python_version.stdout.find('3.8') == -1
-
-- name: Add Deadsnake APT Repository
-  ansible.builtin.apt_repository:
-    repo: ppa:deadsnakes/ppa
-  when: python_version.stdout.find('3.8') == -1
-
-- name: Pre-requsities for Python 3.8
-  ansible.builtin.command: sudo apt-cache policy python3.8
-  changed_when: false
-  when: python_version.stdout.find('3.8') == -1
-
-- name: Installing Python 3.8 Dependencies
-  ansible.builtin.apt:
-    pkg: 
-      - python3.8
-      - python3.8-distutils
-  when: python_version.stdout.find('3.8') == -1
-
-- name: Install the Xresources parser
-  ansible.builtin.command: python3.8 -m pip install xparser
-  when: python_version.stdout.find('3.8') == -1
-
-- name: Install the Xresources parser
-  ansible.builtin.pip:
-    name: xparser
-  when: not python_version.stdout.find('3.8') == -1
-
-- name: Install the Xresources file
-  ansible.builtin.copy:
-    dest: "/home/{{ ansible_user }}/.Xresources"
-    src: "files/colorschemes/{{ colorscheme | lower }}"
-    owner: "{{ ansible_user }}"
-    group: "{{ ansible_user }}"
-    mode: 0644
-
-- name: Parse the Xresources file
-  ansible.builtin.shell:
-    cmd: "python3.8 -c 'import xrp; import json; result = xrp.parse_file(\"/home/{{ ansible_user }}/.Xresources\", encoding=\"utf8\"); print(json.dumps(dict(result.resources), indent = 4).replace(\"*.\", \"\").replace(\"*\", \"\"))'"
-  register: xresources
-  changed_when: false
-  become_user: "{{ ansible_user }}"
-
-- name: debug
-  ansible.builtin.debug:
-    msg: "{{ xresources.stdout }}"
-
-- name: Save variables
+- name: Set colors fact from selected colorscheme
   ansible.builtin.set_fact:
-    colors: "{{ xresources.stdout | from_json }}"
+    colors: "{{ colorschemes[colorscheme | lower] }}"

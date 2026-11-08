@@ -1,4 +1,11 @@
 ---
+- name: Disable systemd-resolved stub listener
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/resolved.conf
+    regexp: '^#?DNSStubListener='
+    line: 'DNSStubListener=no'
+  notify: Restart systemd-resolved
+
 - name: Add Other DNS records to pihole
   ansible.builtin.lineinfile:
     path: "{{ docker_dir }}/pihole-unbound/pihole/custom.list"
@@ -17,6 +24,32 @@
     create: true
   with_dict: "{{ swag_urls }}"
   when: swag_urls is defined
+
+- name: Create Pi-hole and Unbound directories
+  ansible.builtin.file:
+    path: '{{ item }}'
+    state: directory
+    mode: '0755'
+  loop:
+    - '{{ docker_dir }}/pihole-unbound/pihole/'
+    - '{{ docker_dir }}/pihole-unbound/unbound'
+
+- name: Write Unbound config (listens on 5335, not 53)
+  ansible.builtin.copy:
+    dest: '{{ docker_dir }}/pihole-unbound/unbound/unbound.conf'
+    mode: '0644'
+    content: |
+      server:
+          interface: 127.0.0.1
+          port: 5335
+          do-ip4: yes
+          do-ip6: no
+          do-udp: yes
+          do-tcp: yes
+          prefetch: yes
+          so-rcvbuf: 0
+          so-sndbuf: 0
+  register: unbound_conf
 
 - name: Restart Pihole + Unbound container
   community.docker.docker_container:

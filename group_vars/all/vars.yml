@@ -65,4 +65,3 @@ pihole_url: "http://pi.{{ host_tld }}/admin"
 
 # Misc
 enable_watchtower: false
-enable_authelia: false
