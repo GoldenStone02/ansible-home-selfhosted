@@ -1,0 +1,83 @@
+---
+- name: "Healthcheck self-hosted services"
+  hosts: raspberry_pi
+  become: true
+  vars:
+    container_definitions:
+      - enabled: "{{ enable_homer | default(false) }}"
+        name: homer
+
+      - enabled: "{{ enable_pihole | default(false) }}"
+        name: pihole-unbound
+
+      - enabled: "{{ enable_nginx | default(false) }}"
+        name: nginxproxymanager
+
+      - enabled: "{{ enable_redlib | default(false) }}"
+        name: redlib
+
+      - enabled: "{{ enable_openbooks | default(false) }}"
+        name: openbooks
+
+      - enabled: "{{ enable_jellyfin | default(false) }}"
+        name: jellyfin
+
+      - enabled: "{{ enable_uptime_kuma | default(false) }}"
+        name: uptimekuma
+
+      - enabled: "{{ enable_vaultwarden | default(false) }}"
+        name: vaultwarden
+
+      - enabled: "{{ enable_portainer | default(false) }}"
+        name: portainer
+
+      - enabled: "{{ enable_watchtower | default(false) }}"
+        name: watchtower
+
+  tasks:
+    - name: Build expected container list
+      ansible.builtin.set_fact:
+        expected_containers: >-
+          {{
+            container_definitions
+            | selectattr('enabled', 'equalto', true)
+            | map(attribute='name')
+            | list
+          }}
+
+    - name: Show expected containers
+      ansible.builtin.debug:
+        var: expected_containers
+
+    - name: Check expected containers are running
+      community.docker.docker_container_info:
+        name: "{{ item }}"
+      loop: "{{ expected_containers }}"
+      register: container_checks
+
+    - name: Verify expected containers are running
+      ansible.builtin.assert:
+        that:
+          - item.exists
+          - item.container.State.Running
+        fail_msg: >-
+          Expected container '{{ item.item }}' is missing or not running.
+      loop: "{{ container_checks.results }}"
+
+    - name: Check DNS resolves via Pi-hole
+      ansible.builtin.command:
+        cmd: "dig +short @127.0.0.1 {{ host_tld }}"
+      register: dns_check
+      changed_when: false
+      failed_when: dns_check.stdout == ""
+
+    - name: Check disk usage is below 90%
+      ansible.builtin.assert:
+        that:
+          - (ansible_facts['mounts'] | selectattr('mount', 'equalto', '/') | first).size_available
+            / (ansible_facts['mounts'] | selectattr('mount', 'equalto', '/') | first).size_total > 0.1
+        fail_msg: "Root filesystem is over 90% full"
+
+    - name: Report status
+      ansible.builtin.debug:
+        msg: "All checks passed — containers up, DNS resolving, disk OK"

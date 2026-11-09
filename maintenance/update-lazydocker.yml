@@ -1,0 +1,8 @@
+---
+- name: "Update lazydocker"
+  hosts: raspberry_pi
+  become: true
+
+  tasks:
+    - name: Include lazydocker tasks
+      ansible.builtin.include_tasks: ../roles/system/tasks/lazydocker.yml
